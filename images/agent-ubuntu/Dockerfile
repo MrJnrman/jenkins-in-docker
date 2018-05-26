@@ -1,5 +1,5 @@
 FROM ubuntu:16.04
-MAINTAINER Anton Fisher <a.fschr@gmail.com>
+MAINTAINER Jamel Reid <jnoelreid@gmail.com>
 
 USER root
 
