@@ -63,6 +63,22 @@ RUN cd /tmp &&\
     cp -r $GITHUB_CONFIG_REPOSITORY/. $JENKINS_HOME &&\
     rm -r /tmp/$GITHUB_CONFIG_REPOSITORY
 
+# Install node 
+RUN cd $HOME &&\
+    curl -sL https://deb.nodesource.com/setup_8.x -o nodesource_setup.sh &&\
+    bash nodesource_setup.sh &&\
+    apt-get -y install nodejs &&\
+    nodejs -v &&\
+    npm -v &&\
+    apt-get -y install build-essential
+    
+
+# Install automation repo
+RUN cd $HOME &&\
+    git clone git@github.com:QualityWorksCG/nightwatch_starter.git &&\
+    cd nightwatch_starter &&\
+    npm install
+
 # Jenkins workspace for sharing between containers
 VOLUME $JENKINS_HOME/workspace
 
