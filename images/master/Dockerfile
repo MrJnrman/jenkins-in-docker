@@ -1,4 +1,4 @@
-FROM jenkins/jenkins:2.124
+FROM jenkins/jenkins:lts
 MAINTAINER Jamel Reid <jnoelreid@gmail.com>
 
 # root user for Jenkins, need to get access to /var/run/docker.sock (fix this in the future!)
@@ -19,8 +19,9 @@ RUN mkdir -p $JENKINS_HOME
 # Install Jenkins plugins
 RUN /usr/local/bin/install-plugins.sh \
     scm-sync-configuration:0.0.10 \
-    workflow-aggregator:2.4 \
-    docker-workflow:1.8
+    workflow-aggregator:2.5 \
+    docker-workflow:1.17 \
+    github:1.29.0
 
 # Set timezone
 RUN echo "America/Los_Angeles" > /etc/timezone &&\
@@ -78,6 +79,10 @@ RUN cd $HOME &&\
     git clone git@github.com:QualityWorksCG/nightwatch_starter.git &&\
     cd nightwatch_starter &&\
     npm install
+
+# Install vim for debug purposes
+# RUN add-apt-repository ppa:jonathonf/vim &&\
+#     apt-get install vim
 
 # Jenkins workspace for sharing between containers
 VOLUME $JENKINS_HOME/workspace
